@@ -1,7 +1,7 @@
 Descripcion del codigo Sensor Ultrasonico
 ========
-> Codigo revisado por David y Marco
-> Funciona con prototipo
+> Codigo revisado por David y Marco.
+> Funciona con prototipo.
 > 
 > Este programa utiliza un sensor de ultrasonido para medir la distancia
 > entre el sensor y un objeto. El pin trigPin se utiliza para enviar un
