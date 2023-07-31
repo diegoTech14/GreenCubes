@@ -10,3 +10,6 @@ Descripcion del codigo Sensor Ultrasonico
 > para calcular la distancia y luego se muestra en centímetros a través
 > del monitor serial. Si la distancia está fuera del rango útil (más allá
 > de 400 cm o menos de 2 cm), se mostrará "Out of range".
+
+## Notas para cuando se agregue a prototipo
+- Actualmente funciona con el prototipo inicial.
