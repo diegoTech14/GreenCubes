@@ -20,5 +20,7 @@ void loop() {
   delay(1000);
 }
 ```
-Explicacion: este codigo imprime en el monitor serial el mensaje: "Hola desde Arduino", una vez se imprima este mensaje el codigo en Java se dara cuenta que hay
+Este codigo imprime en el monitor serial el mensaje: "Hola desde Arduino", una vez se imprima este mensaje el codigo en Java se dara cuenta que hay
 un mensaje disponible y procedera a leerlo. Recibira primero "H', despues "o" y asi hasta toparse con el salto de linea.
+
+Nota: es válido siempre que Arduino envíe los mensajes de manera que cada mensaje esté delimitado por un salto de línea y no envíe múltiples mensajes en un solo envío. Si Arduino envía mensajes más complejos o con múltiples líneas, es posible que exista la necesidad de implementar un mecanismo de comunicación más avanzado, como agregar un codigo de comunicación específico, para garantizar una lectura y procesamiento adecuados de los datos en Java.
