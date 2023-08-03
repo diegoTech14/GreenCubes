@@ -1,32 +1,39 @@
-#define trigPin 8
-#define echoPin 9
+#include <NewPing.h>
+
+#define TRIGGER_PIN_1 8
+#define ECHO_PIN_1 9
+#define TRIGGER_PIN_2 10
+#define ECHO_PIN_2 11
+
+// Max distance for sensors is 200cm
+NewPing sonar1(TRIGGER_PIN_1, ECHO_PIN_1, 200);
+NewPing sonar2(TRIGGER_PIN_2, ECHO_PIN_2, 200);
 
 void setup() {
   Serial.begin(9600);
-  pinMode(trigPin, OUTPUT); 
-  pinMode(echoPin, INPUT);  
 }
 
 void loop() {
-  float duration, distance;
-  digitalWrite(trigPin, LOW);
-  delayMicroseconds(2);
+  delay(50);
 
-  digitalWrite(trigPin, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
+  unsigned int distance1 = sonar1.ping_cm();
+  unsigned int distance2 = sonar2.ping_cm();
 
-  duration = pulseIn(echoPin, HIGH);
-  distance = (duration / 2) * 0.0344;  
-
-  if (distance >= 400 || distance <= 2) {
-    Serial.print("Distance = ");
-    Serial.println("Out of range");
+  if (distance1 == 0 || distance1 > 400) {
+    Serial.println("Distance 1: Out of range");
   } else {
-    Serial.print("Distance = ");
-    Serial.print(distance);
+    Serial.print("Distance 1: ");
+    Serial.print(distance1);
     Serial.println(" cm");
   }
-  
+
+  if (distance2 == 0 || distance2 > 400) {
+    Serial.println("Distance 2: Out of range");
+  } else {
+    Serial.print("Distance 2: ");
+    Serial.print(distance2);
+    Serial.println(" cm");
+  }
+
   delay(500);
 }
