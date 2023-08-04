@@ -1,4 +1,4 @@
-class Resource {
+class Resource extends Dictionary {
 
   PImage Photo;
   private PImage[] photos = new PImage[2];
@@ -7,11 +7,13 @@ class Resource {
   private float y;
   private int opacity = 255;
   private boolean selected = false;
-  private int indexValue = -1;
+  private int indexValue = 0;
+  private int backgroundCounter = 0;
 
+  float value = 200;
   Resource[] resources = new Resource[6];
-
-  private String[] resourceNames = {"r1.png", "r6.png", "r3.png", "r5.png", "r4.png", "r2.png"};
+  private Positions positions = new Positions();
+  private String[] resourceNames = {"R1.png", "R6.png", "R3.png", "R5.png", "R4.png", "R2.png"};
   private String[] backgrounds = {"fondo.jpg", "fondo2.jpg", "fondo3.jpg", "fondo4.jpg", "fondo5.jpg"};
 
   Resource() {
@@ -54,21 +56,74 @@ class Resource {
     return this.selected;
   }
 
+  public int getSelectionValue() {
+    return this.indexValue;
+  }
+
+  public void setBackgroundCounter() {
+    this.backgroundCounter++;
+  }
+
   public void movePointer(int position, Resource[] resources) {
+
+
     this.indexValue = position;
     if (indexValue > 0) {
       resources[indexValue-1].setSelection(false);
     }
     resources[this.indexValue].setSelection(true);
-    println(this.indexValue);
+    //println("YESSS:::", this.indexValue);
   }
 
 
+
+  private void setImage(String imageName) {
+    PImage photo = loadImage(imageName);
+    imageMode(CENTER);
+    tint(255, opacity); //This apply transparency
+    image(photo, positions.getModelPositions()[0], positions.getModelPositions()[1], 350, 350);
+  }
+  
+  private void drawModel(PShape object) {
+    float theta = 0.0;
+    
+    pushMatrix();
+    translate (width/2, height/2); // Put in the center of the scene
+    //rotate(theta);
+    //rotateY(theta/2);
+    scale (500);
+    shape(object);
+    popMatrix();
+
+    theta+=.01; // increment angle while sketch on
+    //working
+  }
+  public void model3d(String textureName, String resourceName) {
+    PShape object;
+    PImage texture;
+    
+
+    texture = loadImage(textureName);
+    object = loadShape(resourceName);
+    object.setTexture(texture);
+    
+    this.drawModel(object);
+  }
+
+  //print info
   public String toString(int position, Resource[] resources) {
-    for (int i = 0; i < resources.length; i++) {
-      println(resources[i].getSelection());
-    }
-    println("\n");
+
+    String imageName = resourcesInfo.get("info")[position][2];
+    String texture = resourcesInfo.get("info")[position][3];
+
+    String title = resourcesInfo.get("info")[position][0];
+    String description = resourcesInfo.get("info")[position][1];
+
+    textSize(20);
+    text(title, positions.getTitlePositions()[0], positions.getTitlePositions()[1]);
+    text(description, positions.getDescriptionPositions()[0], positions.getDescriptionPositions()[1], 600, 350);
+    this.model3d(texture, imageName);
+
     return resources[position].getPositions();
   }
 
@@ -82,11 +137,36 @@ class Resource {
     return this.resources;
   }
 
-  void display() {
+  public void circleSelection(int index) {
 
+    int r = 150;
+    int z = 250;
+    int xPosition = positions.getXPositions()[index];
+    int yPosition = positions.getYPositions()[index];
+
+    pushMatrix();
+    noFill();
+    if (this.backgroundCounter == 3) {
+      noStroke();
+      this.backgroundCounter = 0;
+    } else {
+      strokeWeight(3);
+      stroke(255, z);
+    }
+
+    ellipseMode(CENTER);
+    circle(xPosition, yPosition, r);//circle
+
+
+    popMatrix();
+  }
+
+  void display() {
+    pushMatrix();
     imageMode(CENTER);
     tint(255, opacity); //This apply transparency
     image(Photo, x, y, 150, 150);
+    popMatrix();
   }
 
   // This function change the transparency.
