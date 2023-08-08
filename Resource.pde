@@ -122,7 +122,7 @@ class Resource extends Dictionary {
     textSize(20);
     text(title, positions.getTitlePositions()[0], positions.getTitlePositions()[1]);
     text(description, positions.getDescriptionPositions()[0], positions.getDescriptionPositions()[1], 600, 350);
-    this.model3d(texture, imageName);
+    //this.model3d(texture, imageName);
 
     return resources[position].getPositions();
   }
