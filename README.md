@@ -11,3 +11,4 @@ Is an HCI project for communicate to people the consequences of the natural expl
 # Thecnologies used in:
 
 <img src="https://img.shields.io/badge/Arduino_IDE-00979D?style=for-the-badge&logo=arduino&logoColor=white">
+<img src="https://img.shields.io/badge/OpenJDK-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"> (Java using Processing)
